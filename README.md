@@ -2,7 +2,7 @@
 
 An action to deploy a WordPress project to a **[WP Engine](https://wpengine.com)** site via git. [Read more](https://wpengine.com/git/) about WP Engine's git deployment support.
 
-## Usage
+## Usage Example
 
 1. Create a `.github/workflows/ci.yml` file in your project repo.
 2. Add the following code to the `ci.yml` file
@@ -46,7 +46,6 @@ jobs:
         WPENGINE_SSH_PRIVATE_KEY: ${{ secrets.WPENGINE_SSH_PRIVATE_KEY }}
         WPENGINE_SSH_PUBLIC_KEY: ${{ secrets.WPENGINE_SSH_PUBLIC_KEY }}
 ```
-3. Create a `.github/assets/.gitignore-wpe` file in your project repo containing untracked files and folders that WP Engine should ignore.
 4. Create a `.github/assets/blocklist` file in your project repo containing all files and folders that should not be copied to the WP Engine server with `git push` - e.g.
 ```
 auth.json
@@ -70,6 +69,7 @@ wp-content/themes/your-theme/assets
 
 | Name | Type  | Usage |
 |-|-|-|
+| `SSH_KEY_TYPE` | Environment Variable | Defaults to `rsa`. Please change this to the correct type of your ssh key. |
 | `WPENGINE_ENVIRONMENT` | Environment Variable | Defaults to `production`. You shouldn't need to change this, but if you're using WP Engine's legacy staging, you can override the default and set to `staging` if needed. |
 | `LOCAL_BRANCH` | Environment Variable | Set which branch in your repository you'd like to push to WP Engine. Defaults to `main`. |
 | `SATISPRESS_URL` | Secret | The URL of your private SatisPress packagist repository. |
