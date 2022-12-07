@@ -56,6 +56,12 @@ function cleanup_wpengine_repo() {
 	cd "$GITHUB_WORKSPACE/../../$WPENGINE_ENVIRONMENT_NAME" && rm -rf *
 }
 
+function cleanup_local_repo() {
+	printf "[\e[0;34mNOTICE\e[0m] Cleaning up WPEngine's repository.\n"
+
+	rm -rf "$GITHUB_WORKSPACE/.git"
+}
+
 function copy_local_repo_to_wpengine() {
 	printf "[\e[0;34mNOTICE\e[0m] Copying Local repo to WPEngine's repository.\n"
 
@@ -74,7 +80,6 @@ function deploy() {
 	printf "[\e[0;34mNOTICE\e[0m] Deploying $BRANCH to $WPENGINE_ENV.\n"
 
   cd "$GITHUB_WORKSPACE/../../$WPENGINE_ENVIRONMENT_NAME" && \
-  pwd && \
 	git add --all && \
 	git commit -m "GitHub Actions Deployment" && \
 	git status && \
@@ -86,6 +91,7 @@ function main() {
 	setup_ssh_access
 	clone_wpengine_repo
 	cleanup_wpengine_repo
+	cleanup_local_repo
 	copy_local_repo_to_wpengine
 	setup_remote_user
 	deploy
