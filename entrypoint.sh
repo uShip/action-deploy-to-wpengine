@@ -103,6 +103,7 @@ function main() {
 	cleanup_wpengine_repo
 	cleanup_local_repo
 	copy_local_repo_to_wpengine
+	cleanup_blocklist_files
 	setup_remote_user
 	deploy
 }
