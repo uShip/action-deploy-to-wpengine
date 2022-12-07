@@ -42,15 +42,21 @@ function setup_private_key() {
 	git config core.sshCommand "ssh -i $WPENGINE_SSH_PRIVATE_KEY_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH"
 }
 
-function setup_remote() {
-	printf "[\e[0;34mNOTICE\e[0m] Setting up remote repository.\n"
+function clone_wpengine_repo() {
+	printf "[\e[0;34mNOTICE\e[0m] Cloning WPEngine's repository.\n"
 
-	git config user.name "Automated Deployment"
-	git config user.email "wp-support@americaneagle.com"
-	git remote add $WPENGINE_ENV git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_ENVIRONMENT_NAME.git
+  cd "$GITHUB_WORKSPACE/.."
+	git clone git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_ENVIRONMENT_NAME.git
 }
 
-function cleanup_repo() {
+function cleanup_wpengine_repo() {
+	printf "[\e[0;34mNOTICE\e[0m] Cleaning up WPEngine's repository.\n"
+
+	cd "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME"
+	rm -rf *
+}
+
+function cleanup_local_repo() {
 	printf "[\e[0;34mNOTICE\e[0m] Cleaning up unnecessary files.\n"
 
 	rm "$GITHUB_WORKSPACE/.gitignore"
@@ -63,20 +69,45 @@ function cleanup_repo() {
 	done
 }
 
+function cleanup_wpengine_repo() {
+	printf "[\e[0;34mNOTICE\e[0m] Cleaning up WPEngine's repository.\n"
+
+	cd "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME"
+	rm -rf *
+}
+
+function copy_local_repo_to_wpengine() {
+	printf "[\e[0;34mNOTICE\e[0m] Cloning WPEngine's repository.\n"
+
+  cp -r "$GITHUB_WORKSPACE/*" "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME"
+}
+
+function setup_remote_user() {
+	printf "[\e[0;34mNOTICE\e[0m] Setting up remote repository.\n"
+
+  cd "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME"
+	git config user.name "Automated Deployment"
+	git config user.email "automation@uship.com"
+}
+
 function deploy() {
 	printf "[\e[0;34mNOTICE\e[0m] Deploying $BRANCH to $WPENGINE_ENV.\n"
 
+  cd "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME"
 	git add --all
 	git commit -m "GitHub Actions Deployment"
 	git status
-	git push -fu $WPENGINE_ENV $BRANCH:main
+	git push -u origin main
 }
 
 function main() {
 	init_checks
 	setup_ssh_access
-	setup_remote
-	cleanup_repo
+	clone_wpengine_repo
+	cleanup_wpengine_repo
+	cleanup_local_repo
+	copy_local_repo_to_wpengine
+	setup_remote_user
 	deploy
 }
 
