@@ -57,19 +57,6 @@ function cleanup_wpengine_repo() {
 	rm -rf *
 }
 
-function cleanup_local_repo() {
-	printf "[\e[0;34mNOTICE\e[0m] Cleaning up unnecessary files.\n"
-
-	rm "$GITHUB_WORKSPACE/.gitignore"
-	mv "$GITHUB_WORKSPACE/.github/assets/.gitignore-wpe" "$GITHUB_WORKSPACE/.gitignore"
-
-	readarray -t filefolders < "$GITHUB_WORKSPACE/.github/assets/blocklist"
-	for filefolder in "${filefolders[@]}"
-	do
-		rm -rf "$GITHUB_WORKSPACE/$filefolder"
-	done
-}
-
 function copy_local_repo_to_wpengine() {
 	printf "[\e[0;34mNOTICE\e[0m] Copying Local repo to WPEngine's repository.\n"
 
@@ -99,7 +86,6 @@ function main() {
 	setup_ssh_access
 	clone_wpengine_repo
 	cleanup_wpengine_repo
-	cleanup_local_repo
 	copy_local_repo_to_wpengine
 	setup_remote_user
 	deploy
