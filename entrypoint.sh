@@ -57,7 +57,7 @@ function cleanup_wpengine_repo() {
 }
 
 function cleanup_local_repo() {
-	printf "[\e[0;34mNOTICE\e[0m] Cleaning up WPEngine's repository.\n"
+	printf "[\e[0;34mNOTICE\e[0m] Cleaning up local repository.\n"
 
 	rm -rf "$GITHUB_WORKSPACE/.git"
 }
@@ -66,6 +66,16 @@ function copy_local_repo_to_wpengine() {
 	printf "[\e[0;34mNOTICE\e[0m] Copying Local repo to WPEngine's repository.\n"
 
   cp -r "$GITHUB_WORKSPACE/." "$GITHUB_WORKSPACE/../../$WPENGINE_ENVIRONMENT_NAME/"
+}
+
+function cleanup_blocklist_files() {
+	printf "[\e[0;34mNOTICE\e[0m] Removing files in blocklist.\n"
+
+  readarray -t filefolders < "$GITHUB_WORKSPACE/.github/assets/blocklist"
+  	for filefolder in "${filefolders[@]}"
+  	do
+  		rm -rf "$GITHUB_WORKSPACE/../../$WPENGINE_ENVIRONMENT_NAME/"
+  	done
 }
 
 function setup_remote_user() {
