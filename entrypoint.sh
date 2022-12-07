@@ -87,7 +87,7 @@ function setup_remote_user() {
 function deploy() {
 	printf "[\e[0;34mNOTICE\e[0m] Deploying $BRANCH to $WPENGINE_ENV.\n"
 
-  cd "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME"
+  cd "$GITHUB_WORKSPACE/../../$WPENGINE_ENVIRONMENT_NAME"
 	git add --all
 	git commit -m "GitHub Actions Deployment"
 	git status
