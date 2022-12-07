@@ -90,4 +90,5 @@ function main() {
 	deploy
 }
 
+set -x
 main
