@@ -38,9 +38,6 @@ function setup_private_key() {
 	chmod 644 "$KNOWN_HOSTS_PATH"
 	chmod 600 "$WPENGINE_SSH_PRIVATE_KEY_PATH"
 	chmod 644 "$WPENGINE_SSH_PUBLIC_KEY_PATH"
-
-  ssh -i $WPENGINE_SSH_PRIVATE_KEY_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH
-	git config core.sshCommand "ssh -i $WPENGINE_SSH_PRIVATE_KEY_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH"
 }
 
 function clone_wpengine_repo() {
