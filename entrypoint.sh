@@ -39,6 +39,7 @@ function setup_private_key() {
 	chmod 600 "$WPENGINE_SSH_PRIVATE_KEY_PATH"
 	chmod 644 "$WPENGINE_SSH_PUBLIC_KEY_PATH"
 
+  ssh -i $WPENGINE_SSH_PRIVATE_KEY_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH
 	git config core.sshCommand "ssh -i $WPENGINE_SSH_PRIVATE_KEY_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH"
 }
 
@@ -69,15 +70,8 @@ function cleanup_local_repo() {
 	done
 }
 
-function cleanup_wpengine_repo() {
-	printf "[\e[0;34mNOTICE\e[0m] Cleaning up WPEngine's repository.\n"
-
-	cd "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME"
-	rm -rf *
-}
-
 function copy_local_repo_to_wpengine() {
-	printf "[\e[0;34mNOTICE\e[0m] Cloning WPEngine's repository.\n"
+	printf "[\e[0;34mNOTICE\e[0m] Copying Local repo to WPEngine's repository.\n"
 
   cp -r "$GITHUB_WORKSPACE/*" "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME"
 }
