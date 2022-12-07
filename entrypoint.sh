@@ -74,7 +74,7 @@ function cleanup_blocklist_files() {
   readarray -t filefolders < "$GITHUB_WORKSPACE/.github/assets/blocklist"
   	for filefolder in "${filefolders[@]}"
   	do
-  		rm -rf "$GITHUB_WORKSPACE/../../$WPENGINE_ENVIRONMENT_NAME/"
+  		rm -rf "$GITHUB_WORKSPACE/../../$WPENGINE_ENVIRONMENT_NAME/$filefolder"
   	done
 }
 
