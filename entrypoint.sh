@@ -69,7 +69,7 @@ function deploy() {
 	git add --all
 	git commit -m "GitHub Actions Deployment"
 	git status
-	git push -fu $WPENGINE_ENV $BRANCH:master
+	git push -fu $WPENGINE_ENV $BRANCH:main
 }
 
 function main() {
