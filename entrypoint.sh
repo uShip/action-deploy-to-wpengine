@@ -47,7 +47,7 @@ function clone_wpengine_repo() {
 	printf "[\e[0;34mNOTICE\e[0m] Cloning WPEngine's repository.\n"
 
   cd "$GITHUB_WORKSPACE/.."
-	git clone git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_ENVIRONMENT_NAME.git
+	git clone --branch main git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_ENVIRONMENT_NAME.git
 }
 
 function cleanup_wpengine_repo() {
@@ -73,7 +73,7 @@ function cleanup_local_repo() {
 function copy_local_repo_to_wpengine() {
 	printf "[\e[0;34mNOTICE\e[0m] Copying Local repo to WPEngine's repository.\n"
 
-  cp -r "$GITHUB_WORKSPACE/*" "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME"
+  cp -r "$GITHUB_WORKSPACE/." "$GITHUB_WORKSPACE/../$WPENGINE_ENVIRONMENT_NAME/"
 }
 
 function setup_remote_user() {
