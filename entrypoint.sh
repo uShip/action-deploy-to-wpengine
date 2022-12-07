@@ -74,6 +74,7 @@ function deploy() {
 	printf "[\e[0;34mNOTICE\e[0m] Deploying $BRANCH to $WPENGINE_ENV.\n"
 
   cd "$GITHUB_WORKSPACE/../../$WPENGINE_ENVIRONMENT_NAME" && \
+  pwd && \
 	git add --all && \
 	git commit -m "GitHub Actions Deployment" && \
 	git status && \
@@ -90,5 +91,4 @@ function main() {
 	deploy
 }
 
-set -x
 main
