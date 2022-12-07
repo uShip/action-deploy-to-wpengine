@@ -71,6 +71,7 @@ wp-content/themes/your-theme/assets
 |-|-|-|
 | `SSH_KEY_TYPE` | Environment Variable | Defaults to `rsa`. Please change this to the correct type of your ssh key. |
 | `WPENGINE_ENVIRONMENT` | Environment Variable | Defaults to `production`. You shouldn't need to change this, but if you're using WP Engine's legacy staging, you can override the default and set to `staging` if needed. |
+| `WPENGINE_BRANCH` | Environment Variable | Set which branch in WPE repository you'd like to push. Defaults to `main`. |
 | `LOCAL_BRANCH` | Environment Variable | Set which branch in your repository you'd like to push to WP Engine. Defaults to `main`. |
 | `SATISPRESS_URL` | Secret | The URL of your private SatisPress packagist repository. |
 | `SATISPRESS_API_KEY` | Secret | The API Key of your private SatisPress packagist repository. |

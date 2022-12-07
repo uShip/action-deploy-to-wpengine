@@ -2,6 +2,7 @@
 
 WPENGINE_HOST="git.wpengine.com"
 WPENGINE_ENVIRONMENT_DEFAULT="production"
+WPENGINE_BRANCH_DEFAULT="main"
 SSH_KEY_TYPE_DEFAULT="rsa"
 WPENGINE_ENV=${WPENGINE_ENVIRONMENT:-$WPENGINE_ENVIRONMENT_DEFAULT}
 LOCAL_BRANCH_DEFAULT="main"
@@ -47,7 +48,7 @@ function clone_wpengine_repo() {
 	printf "[\e[0;34mNOTICE\e[0m] Cloning WPEngine's repository.\n"
 
   cd "$GITHUB_WORKSPACE/../.." && \
-	git clone --branch main git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_ENVIRONMENT_NAME.git
+	git clone --branch "${WPENGINE_BRANCH:-$WPENGINE_BRANCH_DEFAULT}" git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_ENVIRONMENT_NAME.git
 }
 
 function cleanup_wpengine_repo() {
@@ -93,7 +94,7 @@ function deploy() {
 	git add --all && \
 	git commit -m "GitHub Actions Deployment" && \
 	git status && \
-	git push -u origin main
+	git push -u origin "${WPENGINE_BRANCH:-$WPENGINE_BRANCH_DEFAULT}"
 }
 
 function main() {
