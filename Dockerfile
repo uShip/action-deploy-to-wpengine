@@ -5,7 +5,7 @@ LABEL "com.github.actions.description"="An action to deploy a WordPress project 
 LABEL "com.github.actions.icon"="chevrons-right"
 LABEL "com.github.actions.color"="blue"
 
-RUN echo "deb http://security.debian.org/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
+RUN sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y git
 
