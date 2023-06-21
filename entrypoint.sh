@@ -4,7 +4,6 @@ WPENGINE_HOST="git.wpengine.com"
 WPENGINE_ENVIRONMENT_DEFAULT="production"
 WPENGINE_BRANCH_DEFAULT="main"
 SSH_KEY_TYPE_DEFAULT="rsa"
-WPENGINE_ENV=${WPENGINE_ENVIRONMENT:-$WPENGINE_ENVIRONMENT_DEFAULT}
 LOCAL_BRANCH_DEFAULT="main"
 BRANCH=${LOCAL_BRANCH:-$LOCAL_BRANCH_DEFAULT}
 
@@ -48,7 +47,7 @@ function clone_wpengine_repo() {
 	printf "[\e[0;34mNOTICE\e[0m] Cloning WPEngine's repository.\n"
 
   cd "$GITHUB_WORKSPACE/../.." && \
-	git clone --branch "${WPENGINE_BRANCH:-$WPENGINE_BRANCH_DEFAULT}" git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_ENVIRONMENT_NAME.git
+	git clone --branch "${WPENGINE_BRANCH:-$WPENGINE_BRANCH_DEFAULT}" git@$WPENGINE_HOST:$WPENGINE_ENVIRONMENT_NAME.git
 }
 
 function cleanup_wpengine_repo() {
@@ -88,7 +87,7 @@ function setup_remote_user() {
 }
 
 function deploy() {
-	printf "[\e[0;34mNOTICE\e[0m] Deploying $BRANCH to $WPENGINE_ENV.\n"
+	printf "[\e[0;34mNOTICE\e[0m] Deploying $BRANCH to $WPENGINE_ENVIRONMENT_NAME.\n"
 
   cd "$GITHUB_WORKSPACE/../../$WPENGINE_ENVIRONMENT_NAME" && \
 	git add --all && \
